@@ -1,0 +1,4 @@
+#Mon Mar 11 12:40:24 ICT 2019
+base.0=C\:\\LTDDA\\Calculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\8
+path.0=classes.dex
+renamed.0=classes.dex
