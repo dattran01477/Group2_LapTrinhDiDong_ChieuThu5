@@ -11,7 +11,6 @@ public class PostFix extends PolishNotation {
 
 	public PostFix(String str){
 		super(str);
-
 	}
 	@Override
 	public Stack<String> parse() {
