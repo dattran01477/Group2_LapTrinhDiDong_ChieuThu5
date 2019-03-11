@@ -10,8 +10,10 @@ import android.widget.EditText;
 
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
+public class    MainActivity extends AppCompatActivity implements  View.OnClickListener{
 
+    private  String tvMath;
+    private  String tvResult;
     private TextView textMath;
     private TextView textResult;
     private  int[] idButton={
@@ -27,8 +29,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = this.getIntent();
         this.textMath=(TextView)this.findViewById(R.id.tvMath);
         this.textResult=(TextView)this.findViewById(R.id.tvResult);
+        this.tvMath=intent.getStringExtra("tvMath");
+        this.tvResult=intent.getStringExtra("tvResult");
+        TextView txtMath=(TextView) this.findViewById(R.id.tvMath);
+        txtMath.setText(tvMath);
+        TextView txtResult=(TextView)this.findViewById(R.id.tvResult);
+        txtResult.setText(tvResult);
         connectView();
 
     }
@@ -43,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             findViewById(idButton[i]).setOnClickListener(this);
         }
     }
+    //Hàm xóa hết biểu thức và kết quả
     private void init() {
-        textMath.setText("|");
+        textMath.setText("");
         textResult.setText("0");
     }
 
@@ -59,15 +69,23 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                  text = ((Button) findViewById(id)).getText().toString();
                 // clear char | on top
                 if (textMath.getText().toString().trim().equals("|")) {
-                    textResult.setText(" ");
+                    textResult.setText("");
                 }
-                textMath.append(text+" ");
+                textMath.append(text+"");
                 return;
             }
         }
         if(id==R.id.btnDelete){
-            init();
-            return;
+            try {
+                String a = textMath.getText().toString();
+                String b = a.substring(0, a.length() - 1);
+                textMath.setText(b);
+            } catch (Exception e)
+            {
+
+            }
+
+
         }
 
         // clear screen

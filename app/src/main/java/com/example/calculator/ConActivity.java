@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ConActivity extends AppCompatActivity implements  View.OnClickListener {
+public class ConActivity extends AppCompatActivity implements  View.OnClickListener{
 
     //Khởi tạo 2 biến tvMath, tvResult
     private  String tvMath;
@@ -16,8 +16,7 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
     private  TextView textMath;
     private  TextView textResult;
     private  int[] idButton={
-            R.id.btnSin,R.id.btnCos,
-            R.id.btnTan,R.id.btnCot,
+            R.id.btnSin,R.id.btnCos,R.id.btnTan,R.id.btnCot,
             R.id.btnPi,R.id.btnSquareroot,R.id.btnOpenbrackets,R.id.btnClosebrackets
     };
     public static final int MY_REQUEST_CODE = 100;
@@ -35,6 +34,21 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
         connectView();
 
     }
+    // Quay về giao diện ban đầu.
+    public void moveLeftClick(View view)  {
+        // Calling onBackPressed().
+        String textMath= this.textMath.getText().toString();
+        String textResult= this.textResult.getText().toString();
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("tvMath", textMath);
+        intent.putExtra("tvResult", textResult);
+        // Start Activity and no need feedback.
+        // this.startActivity(intent);
+
+        // Start Activity and get feedback.
+        this.startActivityForResult(intent, MY_REQUEST_CODE);
+       // this.onBackPressed();
+    }
     //Bắt sự kiện cho từng Button
     private void connectView() {
         textMath = (TextView) findViewById(R.id.tvMath);
@@ -45,7 +59,7 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
         }
     }
     private void init() {
-        textMath.setText("|");
+        textMath.setText("");
         textResult.setText("0");
     }
 
@@ -53,29 +67,19 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        String text="";
+        String text = "";
         // check button number and button operator
-        for (int i = 0; i < idButton.length - 1; i++) {
+        for (int i = 0; i < idButton.length ; i++) {
             if (id == idButton[i]) {
                 text = ((Button) findViewById(id)).getText().toString();
                 // clear char | on top
                 if (textMath.getText().toString().trim().equals("|")) {
                     textResult.setText(" ");
                 }
-                textMath.append(text+" ");
+                textMath.append(text + " ");
                 return;
             }
         }
 
-
-    }
-
-
-
-    // Quay về giao diện ban đầu.
-    public void moveLeftClick(View view)  {
-        // Calling onBackPressed().
-        // Gọi phương thức onBackPressed().
-        this.onBackPressed();
     }
 }
