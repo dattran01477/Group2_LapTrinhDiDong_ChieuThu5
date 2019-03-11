@@ -9,11 +9,7 @@ import com.example.calculator.Math.ITrigonometric;
  * @version 1.0
  * @created 05-Mar-2019 9:35:45 PM
  */
-public class Operation implements IOperand, IOperator, ITrigonometric {
-
-	public Operation(){
-
-	}
+public  class Operation implements IOperand, IOperator, ITrigonometric {
 
 	@Override
 	public double exponenExpr(double x) {
@@ -21,28 +17,31 @@ public class Operation implements IOperand, IOperator, ITrigonometric {
 	}
 
 	@Override
-	public double sqrtExpr(boolean x) {
-		return 0;
+	public double sqrtExpr(double x) {
+		double rs = Math.sqrt(x);
+		return rs;
 	}
 
 	@Override
 	public double addExpr(double x, double y) {
-		return 0;
+		return x + y;
 	}
 
 	@Override
 	public double divExpr(double x, double y) {
-		return 0;
+		if (y == 0) throw new IllegalArgumentException("Không thể chia cho 0");
+		else return x / y;
 	}
 
 	@Override
 	public double modExpr(double x, double y) {
-		return 0;
+		if (y == 0) throw new IllegalArgumentException("Không thể chia cho 0");
+		else return x % y;
 	}
 
 	@Override
 	public double multiExpr(double x, double y) {
-		return 0;
+		return x * y;
 	}
 
 	@Override
@@ -62,11 +61,11 @@ public class Operation implements IOperand, IOperator, ITrigonometric {
 
 	@Override
 	public double sinExpr(double x) {
-		return 0;
+		return Math.sin(x);
 	}
 
 	@Override
 	public double tanExpr(double x) {
-		return 0;
+		return Math.tan(x);
 	}
 }

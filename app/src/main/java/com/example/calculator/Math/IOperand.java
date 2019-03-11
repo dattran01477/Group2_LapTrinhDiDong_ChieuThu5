@@ -9,6 +9,6 @@ public interface IOperand {
 
 	public double exponenExpr(double x);
 
-	public double sqrtExpr(boolean x);
+	public double sqrtExpr(double x);
 
 }
