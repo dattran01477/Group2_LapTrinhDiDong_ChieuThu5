@@ -16,8 +16,13 @@ public class Operation implements IOperand, IOperator, ITrigonometric {
 	}
 
 	@Override
-	public double exponenExpr(double x) {
-		return 0;
+	public double exponenExpr(double x, int y) {
+		double kq=1;
+		for(double i = 0; i<y ; i++)
+		{
+			kq *= x;
+		}
+		return kq;
 	}
 
 	@Override
@@ -27,7 +32,7 @@ public class Operation implements IOperand, IOperator, ITrigonometric {
 
 	@Override
 	public double addExpr(double x, double y) {
-		return 0;
+		return x+y;
 	}
 
 	@Override
@@ -47,17 +52,22 @@ public class Operation implements IOperand, IOperator, ITrigonometric {
 
 	@Override
 	public double subExpr(double x, double y) {
-		return 0;
+		return x-y;
 	}
 
 	@Override
 	public double cosExpr(double x) {
-		return 0;
+		return Math.cos(x);
 	}
 
 	@Override
 	public double cotanExpr(double x) {
-		return 0;
+		if(Math.tan(x)==0) {
+			throw new IllegalArgumentException("phép toán không hợp lệ");
+		}
+		else {
+			return 1 / Math.tan(x);
+		}
 	}
 
 	@Override

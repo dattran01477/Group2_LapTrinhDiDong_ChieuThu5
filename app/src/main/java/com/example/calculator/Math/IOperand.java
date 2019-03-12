@@ -7,7 +7,7 @@ package com.example.calculator.Math;
  */
 public interface IOperand {
 
-	public double exponenExpr(double x);
+	public double exponenExpr(double x,int y);
 
 	public double sqrtExpr(boolean x);
 
