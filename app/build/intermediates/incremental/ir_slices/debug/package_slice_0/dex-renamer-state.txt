@@ -1,4 +1,4 @@
-#Mon Mar 11 13:40:41 ICT 2019
-base.0=C\:\\LTDDA\\Calculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Wed Mar 13 22:45:34 ICT 2019
+base.0=C\:\\Users\\Dattr\\Documents\\WorkSpaceAndroid\\Calculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

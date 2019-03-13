@@ -24,13 +24,16 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_con);
+
         Intent intent = this.getIntent();
         this.tvMath=intent.getStringExtra("tvMath");
         this.tvResult=intent.getStringExtra("tvResult");
+
         TextView txtMath=(TextView) this.findViewById(R.id.tvMath);
         txtMath.setText(tvMath);
         TextView txtResult=(TextView)this.findViewById(R.id.tvResult);
         txtResult.setText(tvResult);
+
         connectView();
 
     }
@@ -39,6 +42,7 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
         // Calling onBackPressed().
         String textMath= this.textMath.getText().toString();
         String textResult= this.textResult.getText().toString();
+
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("tvMath", textMath);
         intent.putExtra("tvResult", textResult);
@@ -74,9 +78,9 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
                 text = ((Button) findViewById(id)).getText().toString();
                 // clear char | on top
                 if (textMath.getText().toString().trim().equals("|")) {
-                    textResult.setText(" ");
+                    textResult.setText("");
                 }
-                textMath.append(text + " ");
+                textMath.append(text + "");
                 return;
             }
         }

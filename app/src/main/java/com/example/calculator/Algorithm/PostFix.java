@@ -18,6 +18,7 @@ public class PostFix extends PolishNotation {
 		Stack<String> output = new Stack<String>();
 		String number = "";
 		int n = this.expression.length();
+
 		for (int i = 0; i < n; i++) {
 			String s = "" + this.expression.charAt(i);
 			if (prioritizeExpression(s) == 0)

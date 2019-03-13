@@ -1,5 +1,7 @@
 package com.example.calculator.Algorithm;
 
+import com.example.calculator.AppConstant.AppConstant;
+
 import java.util.Stack;
 
 /**
@@ -30,15 +32,11 @@ public abstract class PolishNotation {
 		return 2;
 	}
 
-	protected void FormatExpression(){
+	public static int getPriority(String express){
 
-	}
-
-	protected int getPriority(String express){
-
-		if (express.equals("*") || express.equals("/") || express.equals("%"))
+		if (express.equals(AppConstant.mul) || express.equals(AppConstant.div) || express.equals(AppConstant.mod))
 			return 2;
-		if (express.equals("+") || express.equals("-"))
+		if (express.equals(AppConstant.add) || express.equals(AppConstant.sub))
 			return 1;
 		return 0;
 	}

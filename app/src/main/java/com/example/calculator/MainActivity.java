@@ -10,12 +10,17 @@ import android.widget.EditText;
 
 import android.widget.TextView;
 
+import com.example.calculator.Presenter.CalculatorPresenter;
+import com.github.bgora.rpnlibrary.exceptions.NoSuchFunctionFound;
+import com.github.bgora.rpnlibrary.exceptions.WrongArgumentException;
+
 public class    MainActivity extends AppCompatActivity implements  View.OnClickListener{
 
     private  String tvMath;
     private  String tvResult;
     private TextView textMath;
     private TextView textResult;
+    private CalculatorPresenter calculatorPresenter;
     private  int[] idButton={
             R.id.btnZero,R.id.btnOne,R.id.btnTwo,R.id.btnThree,R.id.btnFour,
             R.id.btnFive,R.id.btnSix,R.id.btnSeven,R.id.btnEight,R.id.btnNine,
@@ -96,7 +101,21 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
 
         // calculation
         if (id == R.id.btnResult) {
-           // cal();
+            Double result= null;
+            String expression = textMath.getText().toString();
+            calculatorPresenter=new CalculatorPresenter(expression);
+
+
+
+            try {
+                result = calculatorPresenter.compute();
+            } catch (WrongArgumentException e) {
+                e.printStackTrace();
+            } catch (NoSuchFunctionFound noSuchFunctionFound) {
+                noSuchFunctionFound.printStackTrace();
+            }
+
+            textResult.setText(result.toString());
         }
 
     }

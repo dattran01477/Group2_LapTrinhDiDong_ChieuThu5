@@ -1,8 +1,15 @@
 package com.example.calculator.Presenter;
 
+import com.example.calculator.Algorithm.PolishNotation;
 import com.example.calculator.Algorithm.PostFix;
+import com.example.calculator.AppConstant.AppConstant;
 import com.example.calculator.MathImpl.Operation;
+import com.github.bgora.rpnlibrary.CalculatorInterface;
+import com.github.bgora.rpnlibrary.advanced.AdvancedCalculatorFactory;
+import com.github.bgora.rpnlibrary.exceptions.NoSuchFunctionFound;
+import com.github.bgora.rpnlibrary.exceptions.WrongArgumentException;
 
+import java.math.BigDecimal;
 import java.util.Stack;
 
 /**
@@ -14,50 +21,56 @@ public class CalculatorPresenter {
 
 	private PostFix converter;
 	private String expression;
-
-
 	private Operation operation;
 
 	public CalculatorPresenter(){
 
 	}
 	public CalculatorPresenter(String x){
-
+		this.expression=x;
+		this.converter=new PostFix(this.expression);
 	}
 	//D
-	public double compute(Stack<String> st){
+	public double compute() throws WrongArgumentException, NoSuchFunctionFound {
+
+		if(this.expression.contains(AppConstant.sin)
+				||this.expression.contains(AppConstant.cos)
+				||this.expression.contains(AppConstant.tan)
+				||this.expression.contains(AppConstant.cotan)){
+
+			AdvancedCalculatorFactory advancedCalculatorFactory=new AdvancedCalculatorFactory();
+			CalculatorInterface calc = advancedCalculatorFactory.createCalculator();
+			BigDecimal result = calc.calculate(this.expression);
+			return result.doubleValue();
+
+		}
+
+		Stack<String> st=converter.parse();
 	    Stack<String> stack = new Stack<>();
 	    String tmp = "";
+
 	    while (!st.empty())
         {
             tmp = st.pop();
-            if(isOperator(tmp)==0) stack.push(tmp);
+            if(PolishNotation.getPriority(tmp)==0) stack.push(tmp);
             else {
                 double number1 = Double.parseDouble(stack.pop());
                 double number2 = Double.parseDouble(stack.pop());
                 stack.push(caculartor(number1,number2,tmp)+"");
             }
         }
-		return Double.parseDouble(stack.pop());
+		return !stack.empty()?Double.parseDouble(stack.pop()):0;
 	}
-
-	private int isOperator(String s)
-    {
-        if(s.equals("+")) return 1;
-        else if(s.equals("-")) return 1;
-        else if(s.equals("*")) return 1;
-        else if(s.equals("/")) return 1;
-        else return  0;
-    }
 
 	private double caculartor(double a, double b, String operator)
 	{
 	    Operation operation = new Operation();
 	    switch (operator){
-            case "+":return operation.addExpr(a,b);
-            case  "-" : return operation.subExpr(a,b);
-            case  "*": return  operation.multiExpr(a,b);
-            case "/" : return  operation.divExpr(a,b);
+            case AppConstant.add:return operation.addExpr(a,b);
+            case  AppConstant.sub : return operation.subExpr(a,b);
+            case  AppConstant.mul: return  operation.multiExpr(a,b);
+			case  AppConstant.mod: return  operation.modExpr(a,b);
+            case AppConstant.div: return  operation.divExpr(b,a);
             default: throw new RuntimeException("Lỗi không xác định");
         }
 	}
