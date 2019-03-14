@@ -681,6 +681,7 @@ id btnDiv
 id btnEight
 id btnFive
 id btnFour
+id btnLt
 id btnMod
 id btnMoveLeft
 id btnMoveRight
@@ -688,7 +689,6 @@ id btnMul
 id btnNine
 id btnOne
 id btnOpenbrackets
-id btnPi
 id btnPlus
 id btnReset
 id btnResult

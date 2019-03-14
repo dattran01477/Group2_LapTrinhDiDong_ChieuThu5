@@ -34,10 +34,18 @@ public abstract class PolishNotation {
 
 	public static int getPriority(String express){
 
-		if (express.equals(AppConstant.mul) || express.equals(AppConstant.div) || express.equals(AppConstant.mod))
+		if(express.equals(AppConstant.exponen))
+			return 3;
+
+		if (express.equals(AppConstant.mul)
+				|| express.equals(AppConstant.div)
+				|| express.equals(AppConstant.mod))
 			return 2;
-		if (express.equals(AppConstant.add) || express.equals(AppConstant.sub))
+
+		if (express.equals(AppConstant.add)
+				|| express.equals(AppConstant.sub))
 			return 1;
+
 		return 0;
 	}
 

@@ -89,7 +89,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="tan"
+                        android:text="tg"
                         android:textSize="20sp" />
 
                     <Button
@@ -97,7 +97,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="cot"
+                        android:text="ctg"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -109,7 +109,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnPi"
+                        android:id="@+id/btnLt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
