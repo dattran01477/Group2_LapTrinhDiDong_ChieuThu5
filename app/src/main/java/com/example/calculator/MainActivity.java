@@ -26,7 +26,7 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
             R.id.btnFive,R.id.btnSix,R.id.btnSeven,R.id.btnEight,R.id.btnNine,
             R.id.btnAdd,R.id.btnSub,R.id.btnMul,R.id.btnDiv,
             R.id.btnPlus
-           ,R.id.btnMod,R.id.btnSpace,
+           ,R.id.btnAns,R.id.btnSpace,
             R.id.btnResult,R.id.btnReset, R.id.btnDelete
     };
     public static final int MY_REQUEST_CODE = 100;
@@ -66,6 +66,10 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
 
     @Override
     public void onClick(View view) {
+        Double result= null;
+        String expression =null;
+
+
         int id = view.getId();
         String text="";
         // check button number and button operator
@@ -76,7 +80,24 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
                 if (textMath.getText().toString().trim().equals("|")) {
                     textResult.setText("");
                 }
+
                 textMath.append(text+"");
+
+                //if button is number then compute
+                if(i<10)
+                {
+                    expression=textMath.getText().toString();
+                    calculatorPresenter=new CalculatorPresenter(expression);
+                    try {
+                        result=calculatorPresenter.compute();
+                        textResult.setText(result.toString());
+                    } catch (WrongArgumentException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchFunctionFound noSuchFunctionFound) {
+                        noSuchFunctionFound.printStackTrace();
+                    }
+                }
+
                 return;
             }
         }
@@ -101,12 +122,8 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
 
         // calculation
         if (id == R.id.btnResult) {
-            Double result= null;
-            String expression = textMath.getText().toString();
+            expression=textMath.getText().toString();
             calculatorPresenter=new CalculatorPresenter(expression);
-
-
-
             try {
                 result = calculatorPresenter.compute();
             } catch (WrongArgumentException e) {
@@ -115,7 +132,8 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
                 noSuchFunctionFound.printStackTrace();
             }
 
-            textResult.setText(result.toString());
+            textMath.setText(result.toString());
+            textResult.setText("");
         }
 
     }

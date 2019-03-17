@@ -17,7 +17,7 @@ public class ConActivity extends AppCompatActivity implements  View.OnClickListe
     private  TextView textResult;
     private  int[] idButton={
             R.id.btnSin,R.id.btnCos,R.id.btnTan,R.id.btnCot,
-            R.id.btnLt,R.id.btnSquareroot,R.id.btnOpenbrackets,R.id.btnClosebrackets
+            R.id.btnLt,R.id.btnSquareroot,R.id.btnOpenbrackets,R.id.btnClosebrackets,R.id.btnMod
     };
     public static final int MY_REQUEST_CODE = 100;
     @Override

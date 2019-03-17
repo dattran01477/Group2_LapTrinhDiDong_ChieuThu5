@@ -69,7 +69,7 @@ public class CalculatorPresenter {
             case AppConstant.add:
                 return operation.addExpr(a, b);
             case AppConstant.sub:
-                return operation.subExpr(a, b);
+                return operation.subExpr(b, a);
             case AppConstant.mul:
                 return operation.multiExpr(a, b);
             case AppConstant.mod:
