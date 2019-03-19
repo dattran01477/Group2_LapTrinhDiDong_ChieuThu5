@@ -28,13 +28,15 @@ public class CalculatorPresenter {
     }
 
     public CalculatorPresenter(String x) {
-        this.expression = x;
+        //Nhan chuoi tu giao dien
+        //Xoa het cac khoang trang
+        this.expression = x.replaceAll("\\s+","");
         this.converter = new PostFix(this.expression);
     }
 
     //D
     public double compute() throws WrongArgumentException, NoSuchFunctionFound {
-
+        //Tinh sin, cos, tan
         if (this.expression.contains(AppConstant.sin)
                 || this.expression.contains(AppConstant.cos)
                 || this.expression.contains(AppConstant.tan)
@@ -47,6 +49,7 @@ public class CalculatorPresenter {
 
         }
 
+        //Tinh bieu thuc
         Stack<String> st = converter.parse();
         Stack<String> stack = new Stack<>();
         String tmp = "";
@@ -57,13 +60,15 @@ public class CalculatorPresenter {
             else {
                 double number1 = Double.parseDouble(stack.pop());
                 double number2 = Double.parseDouble(stack.pop());
-                stack.push(caculartor(number1, number2, tmp) + "");
+                stack.push(Calculate(number1, number2, tmp) + "");
             }
         }
-        return !stack.empty() ? Double.parseDouble(stack.pop()) : 0;
+        if(stack.size()!=1) throw new ArithmeticException("Biểu thức không hợp lệ");
+        else return Double.parseDouble(stack.pop());
     }
 
-    private double caculartor(double a, double b, String operator) {
+    //Ham thuc hien mot phep tinh
+    private double Calculate(double a, double b, String operator) {
         Operation operation = new Operation();
         switch (operator) {
             case AppConstant.add:
