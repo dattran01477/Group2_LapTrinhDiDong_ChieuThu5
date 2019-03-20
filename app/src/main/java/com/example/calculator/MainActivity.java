@@ -11,8 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.calculator.Presenter.CalculatorPresenter;
+import com.example.calculator.Storage.InternalStorage;
 import com.github.bgora.rpnlibrary.exceptions.NoSuchFunctionFound;
 import com.github.bgora.rpnlibrary.exceptions.WrongArgumentException;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Stack;
 
 public class    MainActivity extends AppCompatActivity implements  View.OnClickListener{
 
@@ -21,6 +26,10 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
     private TextView textMath;
     private TextView textResult;
     private CalculatorPresenter calculatorPresenter;
+    private Stack<String> stackExpression=new Stack<>();
+    private HashMap<String,String> hashMapExpressAndResult=new HashMap<>();
+
+
     private  int[] idButton={
             R.id.btnZero,R.id.btnOne,R.id.btnTwo,R.id.btnThree,R.id.btnFour,
             R.id.btnFive,R.id.btnSix,R.id.btnSeven,R.id.btnEight,R.id.btnNine,
@@ -39,6 +48,16 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
         this.textResult=(TextView)this.findViewById(R.id.tvResult);
         this.tvMath=intent.getStringExtra("tvMath");
         this.tvResult=intent.getStringExtra("tvResult");
+
+        //read file in storage android
+        try {
+            this.stackExpression=(Stack<String>)InternalStorage.readObject(this,"stackExpression");
+            this.hashMapExpressAndResult=(HashMap<String,String>)InternalStorage.readObject(this,"hashExpressionAndResult");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         TextView txtMath=(TextView) this.findViewById(R.id.tvMath);
         txtMath.setText(tvMath);
         TextView txtResult=(TextView)this.findViewById(R.id.tvResult);
@@ -73,7 +92,7 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
         int id = view.getId();
         String text="";
         // check button number and button operator
-        for (int i = 0; i < idButton.length - 3; i++) {
+        for (int i = 0; i < idButton.length - 5; i++) {
             if (id == idButton[i]) {
                  text = ((Button) findViewById(id)).getText().toString();
                 // clear char | on top
@@ -84,7 +103,7 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
                 textMath.append(text+"");
 
                 //if button is number then compute
-                if(i<10)
+             /*   if(i<10)
                 {
                     expression=textMath.getText().toString();
                     calculatorPresenter=new CalculatorPresenter(expression);
@@ -96,10 +115,10 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
                     } catch (NoSuchFunctionFound noSuchFunctionFound) {
                         noSuchFunctionFound.printStackTrace();
                     }
-                }
-
+                }*/
                 return;
             }
+
         }
         if(id==R.id.btnDelete){
             try {
@@ -126,18 +145,49 @@ public class    MainActivity extends AppCompatActivity implements  View.OnClickL
             calculatorPresenter=new CalculatorPresenter(expression);
             try {
                 result = calculatorPresenter.compute();
+                //add expression in result
+
+                stackExpression.push(expression);
+                hashMapExpressAndResult.put(expression,result.toString());
+                //save to in storge android
+
+                InternalStorage.writeObject(this,"stackExpression",stackExpression);
+                InternalStorage.writeObject(this,"hashExpressionAndResult",hashMapExpressAndResult);
             } catch (WrongArgumentException e) {
                 e.printStackTrace();
             } catch (NoSuchFunctionFound noSuchFunctionFound) {
                 noSuchFunctionFound.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             textMath.setText(result.toString());
             textResult.setText("");
         }
 
-    }
+        //Ans result
+        if(id==R.id.btnAns){
 
+            try {
+                this.hashMapExpressAndResult=(HashMap<String,String>)InternalStorage.readObject(this,"hashExpressionAndResult");
+                this.stackExpression=(Stack<String>)InternalStorage.readObject(this,"stackExpression");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            //check textmath null or have expression
+            String textMathExpression=textMath.getText().toString();
+            if(textMathExpression.equals(""))
+                textMath.setText(hashMapExpressAndResult.get(stackExpression.peek().toString()));
+            else
+                textMath.setText(textMathExpression+hashMapExpressAndResult.get(stackExpression.peek().toString()));
+
+        }
+
+
+    }
 
 
 

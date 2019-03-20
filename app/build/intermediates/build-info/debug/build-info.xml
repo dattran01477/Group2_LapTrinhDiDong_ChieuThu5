@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86"
-    api-level="26"
+    abi="armeabi-v7a,armeabi"
+    api-level="25"
     build-mode="COLD"
-    density="xhdpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.3.2"
-    timestamp="1552827462403"
+    timestamp="1553096968985"
     token="-3312442432575888258"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="284" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="20" />
     <task
         name="verifier"
-        duration="0" />
+        duration="6" />
+
+    <artifact
+        location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1552826587534"
+        timestamp="1553094720886"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
@@ -52,9 +56,6 @@
             location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
@@ -69,7 +70,21 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1552827462403"
-        verifier="COLD_SWAP_REQUESTED" />
+        ir-eligibility="COMPATIBLE"
+        timestamp="1553096088110"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1553096968985"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Dattr\Documents\WorkSpaceAndroid\Calculator\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+    </build>
 
 </instant-run>

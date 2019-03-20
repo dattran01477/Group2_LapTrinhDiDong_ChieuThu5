@@ -23,6 +23,24 @@ public class PostFix extends PolishNotation {
 			String s = "" + this.expression.charAt(i);
 			if (prioritizeExpression(s) == 0)
 				number += s;
+			else if(s.equals("-"))
+			{
+				if(i==0) number+=s;
+				else
+				{
+					String sp = "" + this.expression.charAt(i-1);
+					if(sp.equals("(")||prioritizeExpression(sp) >0) number+=s;
+					else
+					{
+						output.push(number);
+						number = "";
+						while (!stack.empty() && getPriority(stack.peek()) >= getPriority(s)) {
+							output.push(stack.pop());
+						}
+						stack.push(s);
+					}
+				}
+			}
 			else {
 				if (number.length() > 0) {
 					output.push(number);
@@ -30,17 +48,15 @@ public class PostFix extends PolishNotation {
 				}
 				if (prioritizeExpression(s) == 1) {
 					if (s.equals("(")) {
-
 						stack.push(s);
 					} else if (s.equals(")")) {
 						String pop = stack.pop();
-						while (pop.equals("(")) {
+						while (!pop.equals("(")) {
 							output.push(pop);
 							pop = stack.pop();
 						}
 					}
 				} else {
-
 					while (!stack.empty() && getPriority(stack.peek()) >= getPriority(s)) {
 						output.push(stack.pop());
 					}
@@ -53,8 +69,10 @@ public class PostFix extends PolishNotation {
 			output.push(number);
 			number = "";
 		}
+		
 		while (!stack.empty()) {
 			output.push(stack.pop());
+
 		}
 		while (!output.empty()) {
 			stack.push(output.pop());
